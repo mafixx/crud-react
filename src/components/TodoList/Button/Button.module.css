@@ -1,0 +1,12 @@
+.button{
+    border: none;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: orangered;
+    color: white;
+    transition: filter .3s ease-in-out;
+}
+
+.button:hover{
+    filter: opacity(0.2);
+}
