@@ -2,5 +2,15 @@
     background-color: #ffffff;
     border-radius: 8px;
     width: 50%;
-    height: 200px;
+    min-height: 400px;
+    overflow: hidden;
+}
+
+.todo-list{
+    list-style-type: none;
+}
+
+.todo-list li:nth-child(even){
+    background-color: rgba(243 243 243);
+    
 }

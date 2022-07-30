@@ -1,21 +1,20 @@
 import { ReactNode } from "react";
 import styles from "./Button.module.css"
 
-type Props ={
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement>{
     backgroundColor: string;
     icon: string;
-    onClick: VoidFunction;
+    onClick?: VoidFunction;
     children?: ReactNode;
 }
 
-export default function Button(props: Props){
-    return <button 
-            style={{backgroundColor: props.backgroundColor}}
+export default function Button({backgroundColor, icon, children, ...rest}: Props){
+    return <button
+            {...rest} 
+            style={{backgroundColor: backgroundColor}}
             className={styles.button}
-            onClick={props.onClick}
             >
-            {props.children}
         <i 
-        className={props.icon}> </i> 
+        className={icon}> </i> {children}
         </button>
 }
