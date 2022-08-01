@@ -3,27 +3,28 @@ import styles from "./TodoItem.module.css";
 import Button from "../Button";
 import React, { useEffect, useRef, useState } from "react";
 import { ITodo } from "../../../types/Todo";
+import { useTodo } from "../../../contexts/TodoContext";
 
 
 type Props = {
     todo: ITodo;
-    editTodo:(updatedTodo: ITodo) => void;
-    deleteTodo: VoidFunction;
 }
 
 export default function TodoItem(props: Props) {
     const [editMode, setEditMode] = useState(false);
     const [editText, setEditText] = useState(props.todo.description);
 
+    const { editTodo, deleteTodo } = useTodo();
+
     const inputRef = useRef<HTMLInputElement>(null!);
 
-    function editTodo(){
-        props.editTodo({...props.todo, description: editText});
+    function onEditTodo(){
+        editTodo({...props.todo, description: editText});
         setEditMode(false);
     }
 
     function onCompleteTodo(){
-        props.editTodo({...props.todo, completed: !props.todo.completed});
+        editTodo({...props.todo, completed: !props.todo.completed});
     }
 
     function onStartEditing(){
@@ -33,7 +34,7 @@ export default function TodoItem(props: Props) {
 
     function onDelete(){
         if(window.confirm("Você realmente deseja remover essa tarefa?")){
-            props.deleteTodo();
+            deleteTodo(props.todo.id);
         }
     }
 
@@ -58,11 +59,16 @@ export default function TodoItem(props: Props) {
             {
                 editMode
                     ? <>
-                        <input ref={inputRef} type="text" value={editText} onChange={e => setEditText(e.target.value)} />
+                        <input 
+                            ref={inputRef} 
+                            type="text" 
+                            value={editText} 
+                            onChange={e => setEditText(e.target.value)} 
+                        />
                         <Button
                             backgroundColor="green"
                             icon="fa-solid fa-check"
-                            onClick={editTodo}
+                            onClick={onEditTodo}
                         />
                     </>
                     : <>
