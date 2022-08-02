@@ -1,5 +1,5 @@
 const express = require("express");
-
+const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 8080;
 
@@ -9,6 +9,8 @@ let todos = [
     { id: 3, description: "todo 03", completed: false },
     { id: 4, description: "todo 04", completed: true },
 ];
+
+app.use(cors())
 
 app.use(express.json())
 
@@ -33,7 +35,7 @@ app.put("/v1/todos/:id", (req, res) => {
     const indexTodo = todos.findIndex(todo => todo.id === +id);
 
     if (indexTodo) {
-        todos[indexTodo] = { ...todo, description, completed };
+        todos[indexTodo] = { description, completed };
     }
 
     res.status(204).end();

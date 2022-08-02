@@ -3,7 +3,7 @@ import TodoForm from "./TodoForm";
 import TodoItem from "./TodoItem";
 import styles from "./TodoList.module.css";
 
-export default function TodoList(){
+export default function TodoListPage(){
    const { todos } = useTodo();
 
     return (
